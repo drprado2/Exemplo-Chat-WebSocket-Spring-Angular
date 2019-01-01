@@ -1,0 +1,6 @@
+export enum TipoAcaoChat{
+    USUARIO_ENTROU,
+    USUARIO_SAIU,
+    MENSAGEM_PUBLICA,
+    MENSAGEM_PRIVADA
+}
