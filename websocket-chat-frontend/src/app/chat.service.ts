@@ -71,6 +71,10 @@ export class ChatService implements ChatObservavel{
     return fetch('http://localhost:8080/api/usuarios/').then(r => r.json());
   }
 
+  public verificarNomeUsuarioDisponivel(nome: String): Promise<boolean> {
+    return fetch(`http://localhost:8080/api/usuarios/disponivel?nome=${nome}`).then(r => r.ok ? true : false);
+  }
+
   public enviarMensagemPrivada(destinatario: String, mensagem: String): void {
     const request = {
       tipoAcao: TipoAcaoChat.MENSAGEM_PRIVADA,

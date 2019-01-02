@@ -5,9 +5,9 @@ import {ChatPageComponent} from "./chat-page/chat-page.component";
 
 const routes: Routes = [
     { path: 'entrar', component: LoginPageComponent },
-    { path: '', redirectTo: '/login', pathMatch: 'full' },
+    { path: '', redirectTo: '/entrar', pathMatch: 'full' },
     { path: 'chat', component: ChatPageComponent },
-    { path: '**',  redirectTo: '/login', pathMatch: 'full' }
+    { path: '**',  redirectTo: '/entrar', pathMatch: 'full' }
 ];
 
 @NgModule({

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
+import {ChatService} from "./chat.service";
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'drp-root',
@@ -15,15 +17,15 @@ export class AppComponent {
   constructor(
       private location: Location,
       private activeRoute : ActivatedRoute,
-      private router: Router){}
+      private router: Router,
+      private chatService: ChatService){}
 
   onActivate($event: any) {
-    this.isAuthenticated = !!localStorage.getItem('jwt');
-    if(!localStorage.getItem('jwt') && this.location.path() !== '/login'){
-      this.router.navigate(['/login']);
-    }
-    if(localStorage.getItem('jwt') && this.location.path() === '/login'){
-      this.router.navigate(['/dashboard']);
+    const estaLogado = this.chatService.estouLogado();
+    if(this.chatService.estouLogado() && this.location.path() === '/entrar'){
+      this.router.navigate(['/chat']);
+    }else if(!this.chatService.estouLogado() && this.location.path() === '/chat'){
+      this.router.navigate(['/entrar']);
     }
   }
 }
