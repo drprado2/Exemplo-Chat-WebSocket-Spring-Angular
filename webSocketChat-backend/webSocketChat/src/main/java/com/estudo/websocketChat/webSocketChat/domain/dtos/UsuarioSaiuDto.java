@@ -11,9 +11,7 @@ import java.time.LocalDateTime;
 public class UsuarioSaiuDto extends AcaoPayload {
 
     private String Usuario;
-
     private LocalDateTime dataEntrada;
-
     private LocalDateTime dataSaida;
 
     @NotBlank

@@ -63,7 +63,7 @@ public class ServicoUsuario implements ObservadorAtualizacaoChatHandler, Servico
     }
 
     public void usuarioEntrou(UsuarioEntrouDto dto, String idSessao) {
-        Usuario usuario = new Usuario(idSessao, dto.getUsuario(), LocalDateTime.now());
+        Usuario usuario = new Usuario(idSessao, dto.getUsuario(), LocalDateTime.now(), dto.isMasculino());
         usuariosAtivos.add(usuario);
 
         try {
@@ -142,5 +142,10 @@ public class ServicoUsuario implements ObservadorAtualizacaoChatHandler, Servico
     @Override
     public List<Usuario> obterUsuarios() {
         return usuariosAtivos.stream().collect(Collectors.toList());
+    }
+
+    @Override
+    public int obterQuantidadeUsuarioLogado() {
+        return usuariosAtivos.size();
     }
 }

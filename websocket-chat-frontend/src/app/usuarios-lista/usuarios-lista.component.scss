@@ -1,0 +1,67 @@
+.users-list {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  top: 0px;
+  padding-top: 0px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+  min-width: 300px;
+  border-left: 1px solid #999999;
+  box-shadow: -2px 0 6px 0px rgba(0,0,0,.5);
+  overflow-y: scroll;
+
+  .mat-form-field {
+    width: 100%;
+    padding: 20px 10px 0px 10px;
+    box-sizing: border-box;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+  }
+
+  table {
+    box-shadow: none;
+    margin-top: -20px;
+
+    .mat-header-row {
+      height: 0px;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+
+    .user-row {
+      cursor: pointer;
+
+      &:hover {
+        background: #efefef;
+      }
+
+      td {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        box-sizing: border-box;
+
+        .user-avatar {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background-image: url("https://image.flaticon.com/icons/png/512/147/147136.png");
+          background-size: cover;
+          margin-right: 10px;
+        }
+
+        .user-name {
+          flex-grow: 1;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

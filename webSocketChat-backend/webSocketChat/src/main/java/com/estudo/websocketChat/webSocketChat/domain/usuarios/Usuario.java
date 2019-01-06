@@ -6,6 +6,7 @@ public class Usuario {
     private String id;
     private String nome;
     private LocalDateTime dataEntrada;
+    private boolean masculino;
 
     public String getId() {
         return id;
@@ -31,10 +32,19 @@ public class Usuario {
         this.dataEntrada = dataEntrada;
     }
 
-    public Usuario(String id, String nome, LocalDateTime dataEntrada) {
+    public boolean isMasculino() {
+        return masculino;
+    }
+
+    public void setMasculino(boolean masculino) {
+        this.masculino = masculino;
+    }
+
+    public Usuario(String id, String nome, LocalDateTime dataEntrada, boolean masculino) {
         this.id = id;
         this.nome = nome;
         this.dataEntrada = dataEntrada;
+        this.masculino = masculino;
     }
 
     @Override

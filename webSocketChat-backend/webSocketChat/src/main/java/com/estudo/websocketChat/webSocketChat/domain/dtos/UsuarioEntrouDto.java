@@ -11,8 +11,8 @@ import java.time.LocalDateTime;
 public class UsuarioEntrouDto extends AcaoPayload {
 
     private String usuario;
-
     private LocalDateTime dataEntrada;
+    private boolean masculino;
 
     @NotBlank
     public String getUsuario() {
@@ -31,5 +31,13 @@ public class UsuarioEntrouDto extends AcaoPayload {
 
     public void setDataEntrada(LocalDateTime dataEntrada) {
         this.dataEntrada = dataEntrada;
+    }
+
+    public boolean isMasculino() {
+        return masculino;
+    }
+
+    public void setMasculino(boolean masculino) {
+        this.masculino = masculino;
     }
 }

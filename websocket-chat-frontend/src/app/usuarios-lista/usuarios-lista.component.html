@@ -1,3 +1,19 @@
-<p>
-  usuarios-lista works!
-</p>
+<div class="users-list">
+  <mat-form-field appearance="standard">
+    <mat-label>Pesquisar</mat-label>
+    <input matInput (keyup)="applyFilter($event.target.value)">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="nome">
+      <th mat-header-cell style="height: 10px; padding: 0px" *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let element"> <div class="user-avatar"></div><span class="user-name">{{element.nome}}</span>  </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row class="user-row" *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
+

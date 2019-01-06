@@ -6,4 +6,6 @@ public interface ServicoAplicacaoUsuario {
     public boolean nomeUsuarioDisponivel(String nome);
 
     public List<Usuario> obterUsuarios();
+
+    public int obterQuantidadeUsuarioLogado();
 }

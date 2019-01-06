@@ -30,7 +30,12 @@ public class UsuarioController {
     @GetMapping("/")
     public ResponseEntity<List<UsuarioDto>> obterTodos(){
         List<Usuario> usuarios = servicoUsuario.obterUsuarios();
-        List<UsuarioDto> response = usuarios.stream().map(u -> new UsuarioDto(u.getNome(), u.getDataEntrada())).collect(Collectors.toList());
+        List<UsuarioDto> response = usuarios.stream().map(u -> new UsuarioDto(u.getId(), u.getNome(), u.getDataEntrada(), u.isMasculino())).collect(Collectors.toList());
         return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/quantidade-logado")
+    public ResponseEntity<Integer> obterQuantidadeLogado(){
+        return ResponseEntity.ok().body(servicoUsuario.obterQuantidadeUsuarioLogado());
     }
 }

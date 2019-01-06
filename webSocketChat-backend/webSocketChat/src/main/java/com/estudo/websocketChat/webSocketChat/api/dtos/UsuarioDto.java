@@ -7,8 +7,10 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public class UsuarioDto {
+    private String id;
     private String nome;
     private LocalDateTime dataEntrada;
+    private boolean masculino;
 
     @NotNull
     @NotBlank
@@ -30,8 +32,26 @@ public class UsuarioDto {
         this.dataEntrada = dataEntrada;
     }
 
-    public UsuarioDto(String nome, LocalDateTime dataEntrada) {
+    public boolean isMasculino() {
+        return masculino;
+    }
+
+    public void setMasculino(boolean masculino) {
+        this.masculino = masculino;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public UsuarioDto(String id, String nome, LocalDateTime dataEntrada, boolean masculino) {
+        this.id = id;
         this.nome = nome;
         this.dataEntrada = dataEntrada;
+        this.masculino = masculino;
     }
 }

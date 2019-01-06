@@ -14,9 +14,12 @@ export class ChatService implements ChatObservavel{
 
   private observadores: ChatObservador[] = [];
 
+  private static usuarioLogado: Usuario | null = null;
+
   constructor() { }
 
   private reagirMensagemWebsocket(mensagem: AcaoChat){
+    console.log('mensagem recebida', mensagem);
     switch (mensagem.tipoAcao) {
       case(TipoAcaoChat.MENSAGEM_PRIVADA):
         this.notificarNovaMensagemPrivada(mensagem);
@@ -33,26 +36,30 @@ export class ChatService implements ChatObservavel{
     }
   }
 
-  public entrar(nomeUsuario): Promise<void> {
+  public entrar(nomeUsuario: String, masculino: boolean): Promise<void> {
     return new Promise((resolve, reject) => {
+      const dataEntrada = new Date();
       const loginRequest = {
         tipoAcao: TipoAcaoChat.USUARIO_ENTROU,
         payload: {
           '@type': 'UsuarioEntrou',
           usuario: nomeUsuario,
-          dataEntrada: new Date().toLocaleString('pt-br')
+          dataEntrada: dataEntrada.toLocaleString('pt-br'),
+          masculino: masculino
         }
       }
-      this.chatConnection = new WebSocket('ws://localhost:8080/chat');
+      this.chatConnection = new WebSocket('ws://localhost:8090/chat');
 
       this.chatConnection.onopen = () => {
         this.chatConnection.send(JSON.stringify(loginRequest));
-        sessionStorage.setItem('usuario-chat', nomeUsuario);
+        // @ts-ignore
+        ChatService.usuarioLogado = {nome: nomeUsuario, dataEntrada, masculino};
         setTimeout(resolve, 500);
       };
 
       this.chatConnection.onerror = function (error) {
         console.error('ATENÇÃO!!! Ocorreu um WebSocket Error ', error);
+        reject();
       };
 
       this.chatConnection.onmessage = m => this.reagirMensagemWebsocket(m.data);
@@ -60,19 +67,23 @@ export class ChatService implements ChatObservavel{
   }
 
   public estouLogado(): boolean{
-    return !!sessionStorage.getItem('usuario-chat');
+    return !!ChatService.usuarioLogado;
   }
 
-  public meuUsuario(): String {
-    return sessionStorage.getItem('usuario-chat');
+  public meuUsuario(): Usuario {
+    return ChatService.usuarioLogado;
   }
 
   public obterUsuarios(): Promise<Usuario[]> {
-    return fetch('http://localhost:8080/api/usuarios/').then(r => r.json());
+    return fetch('http://localhost:8090/api/usuarios/').then(r => r.json());
   }
 
   public verificarNomeUsuarioDisponivel(nome: String): Promise<boolean> {
-    return fetch(`http://localhost:8080/api/usuarios/disponivel?nome=${nome}`).then(r => r.ok ? true : false);
+    return fetch(`http://localhost:8090/api/usuarios/disponivel?nome=${nome}`).then(r => r.ok ? true : false);
+  }
+
+  public obterQuantidadeUsuariosLogados(): Promise<number> {
+    return fetch(`http://localhost:8090/api/usuarios//quantidade-logado`).then(r => r.json());
   }
 
   public enviarMensagemPrivada(destinatario: String, mensagem: String): void {

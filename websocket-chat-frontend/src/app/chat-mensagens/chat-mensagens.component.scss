@@ -1,0 +1,66 @@
+.messages-list{
+  flex-grow: 1;
+
+  .message-title {
+    font-weight: 600;
+  }
+
+  .message-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-size: 77%;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    &.public {
+      background-image: url('../../assets/global-message.svg');
+      width: 50px;
+      height: 50px;
+    }
+
+    &.private {
+      background-image: url('../../assets/private-message.svg');
+    }
+
+    &.notification {
+      background-image: url('../../assets/warning.svg');
+      width: 50px;
+      height: 50px;
+      margin-left: -3px;
+    }
+  }
+}
+
+:host /deep/ .mat-list-item-content {
+  flex-direction: row-reverse !important;
+}
+
+:host /deep/ .mat-list-item {
+  border-bottom: 1px solid #555;
+}
+
+:host /deep/ .mat-list-base {
+  padding: 0px;
+}
+
+:host /deep/ .mat-list-item[aria-label=private]{
+  background-color: #e1f5fe;
+}
+
+:host /deep/ .mat-list-item[aria-label=public]{
+  background-color: #e1f5fe;
+}
+
+:host /deep/ .mat-list-item[aria-label=notification]{
+  background-color: #fff9c4;
+}
+
+:host /deep/ .mat-list-item[aria-label=self]{
+  background-color: #dcf8c6;
+}
+
+:host {
+  overflow-y: scroll;
+}
+
